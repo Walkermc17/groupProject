@@ -97,12 +97,12 @@ void AlgoReverbAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 {
     predelay.setFs(sampleRate);
     predelay.setDelaySamples(0.0f);
-    fdn.setTime(timeValue);
-    fdn.setFs(sampleRate);
-    apf1.setFs(sampleRate);
-    apf2.setFs(sampleRate);
+    //fdn.setTime(timeValue);
+    //fdn.setFs(sampleRate);
+    //apf1.setFs(sampleRate);
+    //apf2.setFs(sampleRate);
     
-    ///schroeder.setFs(sampleRate);
+    schroeder.setFs(sampleRate);
     
     Fs = sampleRate;
 }
@@ -153,25 +153,25 @@ void AlgoReverbAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     float predelaySamples = predelaySec * Fs;
     predelay.setDelaySamples(predelaySamples);
     
-    fdn.setTime(timeValue);
-    fdn.setDepth(modValue);
-    apf1.setDepth(modValue);
-    apf2.setDepth(modValue);
-    apf1.setFeedbackGain(diffusionValue);
-    apf2.setFeedbackGain(diffusionValue);
-    ///schroeder.setFeedbackGain(timeValue);
-    ///schroeder.setDiffusionGain(diffusionValue);
-    ///schroeder.setDepth(modValue);
+    //fdn.setTime(timeValue);
+    //fdn.setDepth(modValue);
+    //apf1.setDepth(modValue);
+    //apf2.setDepth(modValue);
+    //apf1.setFeedbackGain(diffusionValue);
+    //apf2.setFeedbackGain(diffusionValue);
+    schroeder.setFeedbackGain(timeValue);
+    schroeder.setDiffusionGain(diffusionValue);
+    schroeder.setDepth(modValue);
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         for (int n = 0 ; n < buffer.getNumSamples(); ++n){
         float x = buffer.getReadPointer(channel)[n];
             
         float verb = predelay.processSample(x, channel);
-        verb = fdn.processSample(verb, channel);
-        verb = apf1.processSample(verb, channel);
-        verb = apf2.processSample(verb, channel);
-        ///verb = schroeder.processSample(x, channel);
+        //verb = fdn.processSample(verb, channel);
+        //verb = apf1.processSample(verb, channel);
+        //verb = apf2.processSample(verb, channel);
+        verb = schroeder.processSample(x, channel);
             
         float y = (1.f - wet) * x + wet * verb;
             

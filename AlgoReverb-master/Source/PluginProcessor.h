@@ -68,11 +68,11 @@ public:
 private:
     
     FractionalDelay predelay;
-    FDN fdn;
-    APF apf1{240.f, 0.8321f};
-    APF apf2{82.f , 0.9640f};
+    //FDN fdn;
+    //APF apf1{240.f, 0.8321f};
+    //APF apf2{82.f , 0.9640f};
     
-    ///Schroeder schroeder;
+    Schroeder schroeder;
     
     float Fs = 48000.0f;
     //==============================================================================
