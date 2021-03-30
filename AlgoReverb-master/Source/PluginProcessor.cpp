@@ -171,7 +171,7 @@ void AlgoReverbAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
         //verb = fdn.processSample(verb, channel);
         //verb = apf1.processSample(verb, channel);
         //verb = apf2.processSample(verb, channel);
-        verb = schroeder.processSample(x, channel);
+        verb = schroeder.processSample(verb, channel);
             
         float y = (1.f - wet) * x + wet * verb;
             
