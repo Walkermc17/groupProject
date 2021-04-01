@@ -105,6 +105,8 @@ void AlgoReverbAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     schroeder.setFs(sampleRate);
     
     Fs = sampleRate;
+    
+    EF.scaleTapTimes(Fs, tapTimes);
 }
 
 void AlgoReverbAudioProcessor::releaseResources()
@@ -146,6 +148,8 @@ void AlgoReverbAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
+    EF.setFs(Fs);
+    
     predelay.setDepth(0.0f);
     predelay.setSpeed(0.0f);
     
@@ -167,11 +171,12 @@ void AlgoReverbAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
         for (int n = 0 ; n < buffer.getNumSamples(); ++n){
         float x = buffer.getReadPointer(channel)[n];
             
-        float verb = predelay.processSample(x, channel);
+        float verb = EF.processSample(x, channel);
+        verb = predelay.processSample(verb, channel);
         //verb = fdn.processSample(verb, channel);
         //verb = apf1.processSample(verb, channel);
         //verb = apf2.processSample(verb, channel);
-        verb = schroeder.processSample(x, channel);
+        verb = schroeder.processSample(verb, channel);
             
         float y = (1.f - wet) * x + wet * verb;
             

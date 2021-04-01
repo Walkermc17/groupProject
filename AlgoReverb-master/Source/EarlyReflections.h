@@ -14,7 +14,7 @@ class EarlyReflections {
     
     
 public:
-    EarlyReflections();
+    EarlyReflections(){};
 
     void setFs(int Fs){
         if (Fs == 44100||Fs == 48000||Fs == 88200||Fs == 96000||Fs == 192000){
