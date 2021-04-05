@@ -24,7 +24,7 @@ AlgoReverbAudioProcessorEditor::AlgoReverbAudioProcessorEditor (AlgoReverbAudioP
     reverbTimeSlider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
     reverbTimeSlider.setBounds(50, 30, 100, 100);
     reverbTimeSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 30);
-    reverbTimeSlider.setRange(0.4f, 0.7f, 0.01f);
+    reverbTimeSlider.setRange(0.1f, .9f, 0.01f);
     reverbTimeSlider.setValue(0.5f);
     addAndMakeVisible(reverbTimeSlider);
     
@@ -53,7 +53,7 @@ AlgoReverbAudioProcessorEditor::AlgoReverbAudioProcessorEditor (AlgoReverbAudioP
     wetDrySlider.setBounds(250, 30, 100, 100);
     wetDrySlider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 30);
     wetDrySlider.setRange(0.0f, 1.0f, 0.01f);
-    wetDrySlider.setValue(0.5f);
+    wetDrySlider.setValue(0.1f);
     addAndMakeVisible(wetDrySlider);
     
     wetDryLabel.setText("Wet/Dry", dontSendNotification);
