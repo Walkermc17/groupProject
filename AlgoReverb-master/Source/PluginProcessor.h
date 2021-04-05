@@ -12,9 +12,10 @@
 
 #include <JuceHeader.h>
 #include "FractionalDelay.hpp"
-#include "FDN.hpp"
+#include "FractionalDelay.hpp"
 #include "APF.hpp"
 #include "Schroeder.hpp"
+#include "EarlyReflections.h"
 
 //==============================================================================
 /**
@@ -68,11 +69,14 @@ public:
 private:
     
     FractionalDelay predelay;
-    FDN fdn;
-    APF apf1{240.f, 0.8321f};
-    APF apf2{82.f , 0.9640f};
+    //FDN fdn;
+    //APF apf1{240.f, 0.8321f};
+    //APF apf2{82.f , 0.9640f};
     
-    ///Schroeder schroeder;
+    Schroeder schroeder;
+    EarlyReflections EF;
+    
+    int tapTimes[18] = {190,949,993,1183,1192,1315,2021,2140,2524,2590,2625,2700,3119,3123,3202,3268,3321,3515};
     
     float Fs = 48000.0f;
     //==============================================================================
